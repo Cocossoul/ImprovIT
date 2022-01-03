@@ -41,11 +41,11 @@ nix.extraOptions = ''
 And this in the /root/.ssh/config.
 You may need to change it if your instance's IP changes.
 
-```
+```ssh-config
 Host builder
-	HostName <Your EC2 instance public IP>
-	User root
-	IdentityFile ~/.ssh/<Your .pem file>
+    HostName <Your EC2 instance public IP>
+    User root
+    IdentityFile ~/.ssh/<Your .pem file>
 ```
 
 Add the `.pem` file AWS gave you to connect via ssh to the instance in the `/root/.ssh` directory.
