@@ -19,23 +19,25 @@ This is what I use on AWS:
 
 ### Your computer
 
-Add this in the NixOS configuration:
+Add this in the NixOS configuration set:
 
 ```nix
-nix.buildMachines = [{
-    hostName = "builder";
-    system = "x86_64-linux";
-    maxJobs = 2;
-    speedFactor = 2;
-    supportedFeatures = [];
-    mandatoryFeatures = [];
-}];
+{
+    nix.buildMachines = [{
+        hostName = "builder";
+        system = "x86_64-linux";
+        maxJobs = 2;
+        speedFactor = 2;
+        supportedFeatures = [];
+        mandatoryFeatures = [];
+    }];
 
-nix.distributedBuilds = true;
+    nix.distributedBuilds = true;
 
-nix.extraOptions = ''
-    builders-use-substitutes = true
-'';
+    nix.extraOptions = ''
+        builders-use-substitutes = true
+    '';
+}
 ```
 
 And this in the /root/.ssh/config.
