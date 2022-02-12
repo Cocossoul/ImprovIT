@@ -8,7 +8,7 @@ def wake_up_gaming_pc(ch, method, properties, body):
     print(f"Recieved message: {body}")
     if body.decode('utf-8') == "wake up":
         os.system(f"echo Waking up {mac_address}")
-        os.system(f"etherwake -i eth0 {mac_address}")
+        os.system(f"sudo etherwake -i eth0 {mac_address}")
     pass
 
 host = sys.argv[1]
