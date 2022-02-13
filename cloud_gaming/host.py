@@ -9,6 +9,11 @@ def wake_up_gaming_pc(ch, method, properties, body):
     if body.decode('utf-8') == "wake up":
         os.system(f"echo Waking up {mac_address}")
         os.system(f"sudo etherwake -i eth0 {mac_address}")
+        channel.basic_publish(exchange='',
+                routing_key='wol',
+                properties=pika.BasicProperties(expiration='60000'),
+                body='waked up',
+                )
     pass
 
 host = sys.argv[1]
@@ -17,8 +22,8 @@ connection = pika.BlockingConnection(pika.URLParameters(host))
 channel = connection.channel()
 channel.queue_declare(queue='wol')
 channel.basic_consume(queue='wol',
-                    auto_ack=True,
-                    on_message_callback=wake_up_gaming_pc)
+        auto_ack=True,
+        on_message_callback=wake_up_gaming_pc)
 
 print(' [*] Waiting for messages. To exit press CTRL+C')
 channel.start_consuming()
