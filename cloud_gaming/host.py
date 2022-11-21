@@ -32,11 +32,15 @@ def wake_up_gaming_pc(mac_address):
 
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
+        print(f"Received '{msg.payload.decode()}' on {msg.topic}")
         if msg.topic == topic and msg.payload.decode() == "wake up":
             wake_up_gaming_pc(mac_address)
         return
 
-    client.subscribe(topic)
+    err = client.subscribe(topic)
+    if err[0] != 0:
+        print("Failed to connect to broker")
+
     client.on_message = on_message
     return
 
