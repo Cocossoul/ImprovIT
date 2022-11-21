@@ -1,6 +1,7 @@
 from paho.mqtt import client as mqtt_client
 import sys
 import os
+import time
 
 broker = sys.argv[1]
 port = 1883
@@ -35,3 +36,4 @@ def publish(client):
 client = connect_mqtt()
 client.loop_start()
 publish(client)
+time.sleep(1)
